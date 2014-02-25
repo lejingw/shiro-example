@@ -14,7 +14,11 @@ public class JdbcTemplateUtils {
 
     public static JdbcTemplate jdbcTemplate() {
         if(jdbcTemplate == null) {
-            jdbcTemplate = createJdbcTemplate();
+        	synchronized(JdbcTemplateUtils.class){
+        		if(null == jdbcTemplate){        			
+        			jdbcTemplate = createJdbcTemplate();
+        		}
+        	}
         }
         return jdbcTemplate;
     }
@@ -25,7 +29,7 @@ public class JdbcTemplateUtils {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/shiro");
         ds.setUsername("root");
-        ds.setPassword("");
+        ds.setPassword("111111");
 
         return new JdbcTemplate(ds);
     }

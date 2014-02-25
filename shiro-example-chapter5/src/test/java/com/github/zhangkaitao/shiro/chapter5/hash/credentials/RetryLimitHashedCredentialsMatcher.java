@@ -6,10 +6,8 @@ import net.sf.ehcache.Element;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 
-import javax.security.auth.login.AccountLockedException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -40,6 +38,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             //if retry count > 5 throw
             throw new ExcessiveAttemptsException();
         }
+        System.out.println("------"+retryCount.get());
 
         boolean matches = super.doCredentialsMatch(token, info);
         if(matches) {

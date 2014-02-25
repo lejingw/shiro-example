@@ -38,6 +38,7 @@ public abstract class BaseTest {
 
     @Before
     public void setUp() {
+    	System.out.println("--------------------");
         JdbcTemplateUtils.jdbcTemplate().update("delete from sys_users");
         JdbcTemplateUtils.jdbcTemplate().update("delete from sys_roles");
         JdbcTemplateUtils.jdbcTemplate().update("delete from sys_permissions");

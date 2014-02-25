@@ -67,7 +67,9 @@ public class AuthenticatorTest {
 
         //得到一个身份集合，因为myRealm1和myRealm4返回的身份一样所以输出时只返回一个
         PrincipalCollection principalCollection = subject.getPrincipals();
+        
         Assert.assertEquals(1, principalCollection.asList().size());
+        Assert.assertEquals(2, principalCollection.getRealmNames().size());
     }
 
     @Test

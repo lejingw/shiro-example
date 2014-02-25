@@ -78,11 +78,14 @@ public class PasswordTest extends BaseTest {
 
     @Test(expected = ExcessiveAttemptsException.class)
     public void testRetryLimitHashedCredentialsMatcherWithMyRealm() {
-        for(int i = 1; i <= 5; i++) {
+        for(int i = 0; i < 5; i++) {
             try {
                 login("classpath:shiro-retryLimitHashedCredentialsMatcher.ini", "liu", "234");
-            } catch (Exception e) {/*ignore*/}
+            } catch (Exception e) {
+            	System.out.println("----login authenticate fail-----");
+            }
         }
-        login("classpath:shiro-retryLimitHashedCredentialsMatcher.ini", "liu", "234");
+        //由于已经五次验证失败，则第六此，即使密码正确，也无法继续验证
+        login("classpath:shiro-retryLimitHashedCredentialsMatcher.ini", "liu", "123");
     }
 }

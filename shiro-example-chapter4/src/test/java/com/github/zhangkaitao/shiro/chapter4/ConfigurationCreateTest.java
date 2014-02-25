@@ -19,31 +19,32 @@ import org.junit.Test;
 import java.util.Arrays;
 
 /**
- * <p>User: Zhang Kaitao
- * <p>Date: 14-1-27
- * <p>Version: 1.0
+ * <p>
+ * User: Zhang Kaitao
+ * <p>
+ * Date: 14-1-27
+ * <p>
+ * Version: 1.0
  */
 public class ConfigurationCreateTest {
 
-    @Test
-    public void test() {
+	@Test
+	public void test() {
 
-        Factory<org.apache.shiro.mgt.SecurityManager> factory =
-                new IniSecurityManagerFactory("classpath:shiro-config.ini");
+		Factory<org.apache.shiro.mgt.SecurityManager> factory = new IniSecurityManagerFactory(
+				"classpath:shiro-config.ini");
 
-        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
+		org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
 
-        //将SecurityManager设置到SecurityUtils 方便全局使用
-        SecurityUtils.setSecurityManager(securityManager);
+		// 将SecurityManager设置到SecurityUtils 方便全局使用
+		SecurityUtils.setSecurityManager(securityManager);
 
-        Subject subject = SecurityUtils.getSubject();
+		Subject subject = SecurityUtils.getSubject();
 
-        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
-        subject.login(token);
+		UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
+		subject.login(token);
 
-        Assert.assertTrue(subject.isAuthenticated());
+		Assert.assertTrue(subject.isAuthenticated());
 
-
-
-    }
+	}
 }
