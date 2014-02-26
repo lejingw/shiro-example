@@ -33,6 +33,7 @@
 <shiro:hasPermission name="user:create">
     用户[<shiro:principal/>]拥有权限user:create<br/>
 </shiro:hasPermission>
+
 <shiro:lacksPermission name="org:create">
     用户[<shiro:principal/>]没有权限org:create<br/>
 </shiro:lacksPermission>
