@@ -26,7 +26,7 @@ public abstract class BaseTest {
     protected UserService userService = new UserServiceImpl();
 
     protected String password = "123";
-
+    
     protected Permission p1;
     protected Permission p2;
     protected Permission p3;

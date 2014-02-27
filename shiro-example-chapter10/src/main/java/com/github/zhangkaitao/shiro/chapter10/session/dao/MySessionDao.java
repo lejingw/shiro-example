@@ -35,6 +35,7 @@ public class MySessionDAO extends CachingSessionDAO {
         if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
             return; //如果会话过期/停止 没必要再更新了
         }
+        System.out.println("-----------------------------------------------doUpdate");
         String sql = "update sessions set session=? where id=?";
         jdbcTemplate.update(sql, SerializableUtils.serialize(session), session.getId());
     }

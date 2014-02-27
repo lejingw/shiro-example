@@ -21,6 +21,7 @@ public class PermissionDaoImpl extends JdbcDaoSupport implements PermissionDao {
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         getJdbcTemplate().update(new PreparedStatementCreator() {
+
             @Override
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement psst = connection.prepareStatement(sql, new String[]{"id"});
@@ -29,6 +30,7 @@ public class PermissionDaoImpl extends JdbcDaoSupport implements PermissionDao {
                 psst.setBoolean(3, permission.getAvailable());
                 return psst;
             }
+        	
         }, keyHolder);
         permission.setId(keyHolder.getKey().longValue());
 

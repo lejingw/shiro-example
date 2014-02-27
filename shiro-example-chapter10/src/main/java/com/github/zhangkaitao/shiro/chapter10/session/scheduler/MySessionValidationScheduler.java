@@ -2,6 +2,7 @@ package com.github.zhangkaitao.shiro.chapter10.session.scheduler;
 
 import com.github.zhangkaitao.shiro.chapter10.JdbcTemplateUtils;
 import com.github.zhangkaitao.shiro.chapter10.SerializableUtils;
+
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.*;
@@ -83,31 +84,40 @@ public class MySessionValidationScheduler implements SessionValidationScheduler,
             log.debug("Executing session validation...");
         }
         long startTime = System.currentTimeMillis();
-
-        //分页获取会话并验证
-        String sql = "select session from sessions limit ?,?";
-        int start = 0; //起始记录
-        int size = 20; //每页大小
-        List<String> sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);
-        while(sessionList.size() > 0) {
-            for(String sessionStr : sessionList) {
-                try {
-                    Session session = SerializableUtils.deserialize(sessionStr);
-                    Method validateMethod = ReflectionUtils.findMethod(AbstractValidatingSessionManager.class, "validate", Session.class, SessionKey.class);
-                    validateMethod.setAccessible(true);
-                    ReflectionUtils.invokeMethod(validateMethod, sessionManager, session, new DefaultSessionKey(session.getId()));
-                } catch (Exception e) {
-                    //ignore
-                }
-            }
-            start = start + size;
-            sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);
-        }
-
+        this.sessionManager.validateSessions();
         long stopTime = System.currentTimeMillis();
         if (log.isDebugEnabled()) {
             log.debug("Session validation completed successfully in " + (stopTime - startTime) + " milliseconds.");
         }
+//        if (log.isDebugEnabled()) {
+//            log.debug("Executing session validation...");
+//        }
+//        long startTime = System.currentTimeMillis();
+//
+//        //分页获取会话并验证
+//        String sql = "select session from sessions limit ?,?";
+//        int start = 0; //起始记录
+//        int size = 20; //每页大小
+//        List<String> sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);
+//        while(sessionList.size() > 0) {
+//            for(String sessionStr : sessionList) {
+//                try {
+//                    Session session = SerializableUtils.deserialize(sessionStr);
+//                    Method validateMethod = ReflectionUtils.findMethod(AbstractValidatingSessionManager.class, "validate", Session.class, SessionKey.class);
+//                    validateMethod.setAccessible(true);
+//                    ReflectionUtils.invokeMethod(validateMethod, sessionManager, session, new DefaultSessionKey(session.getId()));
+//                } catch (Exception e) {
+//                    //ignore
+//                }
+//            }
+//            start = start + size;
+//            sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);
+//        }
+//
+//        long stopTime = System.currentTimeMillis();
+//        if (log.isDebugEnabled()) {
+//            log.debug("Session validation completed successfully in " + (stopTime - startTime) + " milliseconds.");
+//        }
     }
 
     public void disableSessionValidation() {

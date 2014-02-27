@@ -211,6 +211,7 @@ public class EhCacheManager implements CacheManager, Initializable, Destroyable 
                 //we don't know which component is responsible for shutting it down.  By using a single EhCacheManager,
                 //it will always know to shut down the instance if it was responsible for creating it.
                 this.manager = net.sf.ehcache.CacheManager.create(getCacheManagerConfigFileInputStream());
+//              this.manager = new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream());
                 if (log.isTraceEnabled()) {
                     log.trace("instantiated Ehcache CacheManager instance.");
                 }

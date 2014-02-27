@@ -42,8 +42,8 @@ public class ShiroTest {
     @Autowired
     private UserRealm userRealm;
 
-    
     protected JdbcTemplate jdbcTemplate;
+    
     @Autowired
     private void setDataSource(DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);    
@@ -121,10 +121,6 @@ public class ShiroTest {
 
         token = new UsernamePasswordToken(u1.getUsername(), password + "1");
         subject.login(token);
-
-
-
-
     }
 
 }

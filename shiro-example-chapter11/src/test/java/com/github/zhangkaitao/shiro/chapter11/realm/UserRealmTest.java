@@ -1,16 +1,11 @@
 package com.github.zhangkaitao.shiro.chapter11.realm;
 
-import com.github.zhangkaitao.shiro.chapter11.BaseTest;
-import junit.framework.Assert;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.RealmSecurityManager;
-import org.apache.shiro.subject.Subject;
-import org.junit.Before;
 import org.junit.Test;
+
+import com.github.zhangkaitao.shiro.chapter11.BaseTest;
 
 /**
  * <p>User: Zhang Kaitao
@@ -25,7 +20,9 @@ public class UserRealmTest extends BaseTest {
         RealmSecurityManager securityManager = (RealmSecurityManager) SecurityUtils.getSecurityManager();
         UserRealm userRealm = (UserRealm) securityManager.getRealms().iterator().next();
         userRealm.clearCachedAuthenticationInfo(subject().getPrincipals());
-
+        //关闭缓存，否则会重复创建，测试多于两个用例时报错
+        EhCacheManager ehCacheManager = (EhCacheManager)securityManager.getCacheManager();
+        ehCacheManager.destroy();
         super.tearDown();
     }
 
