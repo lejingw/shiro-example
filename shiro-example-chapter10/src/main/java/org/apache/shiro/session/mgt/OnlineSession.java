@@ -130,10 +130,11 @@ public class OnlineSession extends SimpleSession {
         out.defaultWriteObject();
         short alteredFieldsBitMask = getAlteredFieldsBitMask();
         out.writeShort(alteredFieldsBitMask);
-        if (userAgent != null) {
+        
+        if (isFieldPresent(alteredFieldsBitMask, USER_AGENT_BIT_MASK)) {
             out.writeObject(userAgent);
         }
-        if (status != null) {
+        if (isFieldPresent(alteredFieldsBitMask, STATUS_BIT_MASK)) {
             out.writeObject(status);
         }
 
@@ -170,8 +171,10 @@ public class OnlineSession extends SimpleSession {
      */
     private short getAlteredFieldsBitMask() {
         int bitMask = 0;
-        bitMask = userAgent != null ? bitMask | USER_AGENT_BIT_MASK : bitMask;
-        bitMask = status != null ? bitMask | STATUS_BIT_MASK : bitMask;
+//        bitMask = userAgent != null ? bitMask | USER_AGENT_BIT_MASK : bitMask;
+//        bitMask = status != null ? bitMask | STATUS_BIT_MASK : bitMask;
+        if(userAgent != null) bitMask |= USER_AGENT_BIT_MASK;
+        if(status != null) bitMask |= STATUS_BIT_MASK;
         return (short) bitMask;
     }
 
