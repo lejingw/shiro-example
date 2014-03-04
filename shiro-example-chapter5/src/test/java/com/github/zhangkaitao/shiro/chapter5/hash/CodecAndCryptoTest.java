@@ -38,18 +38,18 @@ public class CodecAndCryptoTest {
     public void testBase64() {
         String str = "hello";
         String base64Encoded = Base64.encodeToString(str.getBytes());
+        System.out.println(base64Encoded);
         String str2 = Base64.decodeToString(base64Encoded);
         Assert.assertEquals(str, str2);
-
     }
 
     @Test
     public void testHex() {
         String str = "hello";
-        String base64Encoded = Hex.encodeToString(str.getBytes());
-        String str2 = new String(Hex.decode(base64Encoded.getBytes()));
+        String hexEncoded = Hex.encodeToString(str.getBytes());
+        System.out.println(hexEncoded);
+        String str2 = new String(Hex.decode(hexEncoded.getBytes()));
         Assert.assertEquals(str, str2);
-
     }
 
     @Test
@@ -172,6 +172,9 @@ public class CodecAndCryptoTest {
 
         //生成key
         Key key = aesCipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
 
         String text = "hello";
 
@@ -192,9 +195,12 @@ public class CodecAndCryptoTest {
 
         //生成key
         Key key = blowfishCipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
 
         String text = "hello";
-
+        
         //加密
         String encrptText = blowfishCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();
         System.out.println(encrptText);
@@ -212,6 +218,9 @@ public class CodecAndCryptoTest {
 
         //生成key
         Key key = cipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
 
         String text = "hello";
         //加密

@@ -6,42 +6,44 @@
         version="3.0"
         metadata-complete="false">
 
-    <!--- shiro 1.1 -->
-    <!--<filter>-->
-        <!--<filter-name>iniShiroFilter</filter-name>-->
-        <!--<filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>configPath</param-name>-->
-            <!--<param-value>classpath:shiro.ini</param-value>&lt;!&ndash; 默认先从/WEB-INF/shiro.ini，如果没有找classpath:shiro.ini&ndash;&gt;-->
-        <!--</init-param>-->
-        <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
-            <!--&lt;!&ndash;<param-name>config</param-name>&ndash;&gt;-->
-            <!--&lt;!&ndash;<param-value>&ndash;&gt;-->
-                <!--&lt;!&ndash;[main]&ndash;&gt;-->
-                <!--&lt;!&ndash;authc.loginUrl=/login&ndash;&gt;-->
+            <!-- 默认先从/WEB-INF/shiro.ini，如果没有找classpath:shiro.ini -->
+    <!--- shiro 1.1
+    <filter>
+        <filter-name>iniShiroFilter</filter-name>
+        <filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
+        <init-param>
+            <param-name>configPath</param-name>
+            <param-value>classpath:shiro.ini</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>
+                [main]
+                authc.loginUrl=/login
 
-                <!--&lt;!&ndash;[users]&ndash;&gt;-->
-                <!--&lt;!&ndash;zhang=123,admin&ndash;&gt;-->
+                [users]
+                zhang=123,admin
 
-                <!--&lt;!&ndash;[roles]&ndash;&gt;-->
-                <!--&lt;!&ndash;admin=user:*,menu:*&ndash;&gt;-->
+                [roles]
+                admin=user:*,menu:*
 
-                <!--&lt;!&ndash;[urls]&ndash;&gt;-->
-                <!--&lt;!&ndash;/login=anon&ndash;&gt;-->
-                <!--&lt;!&ndash;/static/**=anon&ndash;&gt;-->
-                <!--&lt;!&ndash;/authenticated=authc&ndash;&gt;-->
-                <!--&lt;!&ndash;/role=authc,roles[admin]&ndash;&gt;-->
-                <!--&lt;!&ndash;/permission=authc,perms["user:create"]&ndash;&gt;-->
-            <!--&lt;!&ndash;</param-value>&ndash;&gt;-->
-        <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>iniShiroFilter</filter-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</filter-mapping>-->
+                [urls]
+                /login=anon
+                /static/**=anon
+                /authenticated=authc
+                /role=authc,roles[admin]
+                /permission=authc,perms["user:create"]
+            </param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>iniShiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> -->
 
 
     <!--- shiro 1.2 -->
+    <!-- 默认使用IniWebEnvironment，可以使用context-param的name：shiroEnvironmentClass指定 -->
     <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
     </listener>
