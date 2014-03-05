@@ -16,8 +16,8 @@
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.github.zhangkaitao.shiro.chapter16.credentials.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager"/>
-        <property name="hashAlgorithmName" value="md5"/>
-        <property name="hashIterations" value="2"/>
+        <property name="hashAlgorithmName" value="${password.algorithmName}"/>
+        <property name="hashIterations" value="${password.hashIterations}"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
 
