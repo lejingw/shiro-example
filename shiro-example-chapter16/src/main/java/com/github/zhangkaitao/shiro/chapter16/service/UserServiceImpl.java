@@ -2,7 +2,9 @@ package com.github.zhangkaitao.shiro.chapter16.service;
 
 import com.github.zhangkaitao.shiro.chapter16.dao.UserDao;
 import com.github.zhangkaitao.shiro.chapter16.entity.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -70,7 +72,9 @@ public class UserServiceImpl implements UserService {
      * @param username
      * @return
      */
+    //@Cacheable(value={"testCache"})
     public User findByUsername(String username) {
+    	System.out.println("--=--findByUsername");
         return userDao.findByUsername(username);
     }
 

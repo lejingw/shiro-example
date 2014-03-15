@@ -29,6 +29,8 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         CurrentUser currentUserAnnotation = parameter.getParameterAnnotation(CurrentUser.class);
+        System.out.println("==================currentUserAnnotation.value()");
+        System.out.println(currentUserAnnotation.value());
         return webRequest.getAttribute(currentUserAnnotation.value(), NativeWebRequest.SCOPE_REQUEST);
     }
 }

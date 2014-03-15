@@ -109,7 +109,7 @@
         <property name="users">
             <map>
                 <entry key="casuser" value="Mellon"/>
-                <entry key="zhang" value="123"/>
+                <entry key="wang" value="123"/>
             </map>
         </property>
     </bean>
