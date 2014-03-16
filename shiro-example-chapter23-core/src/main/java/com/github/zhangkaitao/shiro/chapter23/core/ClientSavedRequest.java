@@ -14,14 +14,14 @@ public class ClientSavedRequest extends SavedRequest {
     private String domain;
     private int port;
     private String contextPath;
-    private String successUrl;
+    private String backUrl;
 
-    public ClientSavedRequest(HttpServletRequest request, String successUrl) {
+    public ClientSavedRequest(HttpServletRequest request, String backUrl) {
         super(request);
         this.scheme = request.getScheme();
         this.domain = request.getServerName();
         this.port = request.getServerPort();
-        this.successUrl = successUrl;
+        this.backUrl = backUrl;
         this.contextPath = request.getContextPath();
     }
 
@@ -41,33 +41,35 @@ public class ClientSavedRequest extends SavedRequest {
         return contextPath;
     }
 
-    public String getSuccessUrl() {
-        return successUrl;
+    public String getBackUrl() {
+        return backUrl;
     }
 
     public String getRequestUrl() {
-        System.out.println(successUrl);
         String requestURI = getRequestURI();
-        if(successUrl != null) {
-            if(successUrl.toLowerCase().startsWith("http://") || successUrl.toLowerCase().startsWith("https://")) {
-                return successUrl;
-            } else if(!successUrl.startsWith(contextPath)) {
-                requestURI = contextPath + successUrl;
-            } else {
-                requestURI = successUrl;
+        if(backUrl != null) {//1
+            if(backUrl.toLowerCase().startsWith("http://") || backUrl.toLowerCase().startsWith("https://")) {
+                return backUrl;
+            } else if(!backUrl.startsWith(contextPath)) {//2
+                requestURI = contextPath + backUrl;
+            } else {//3
+                requestURI = backUrl;
             }
         }
 
-        StringBuilder requestUrl = new StringBuilder(getScheme());
+        StringBuilder requestUrl = new StringBuilder(scheme);//4
         requestUrl.append("://");
-        requestUrl.append(getDomain());
-        if("http".equalsIgnoreCase(getScheme()) && getPort() != 80) {
-            requestUrl.append(String.valueOf(port));
-        } else if("https".equalsIgnoreCase(getScheme()) && getPort() != 443) {
-            requestUrl.append(String.valueOf(port));
+        requestUrl.append(domain);//5
+        //6
+        if("http".equalsIgnoreCase(scheme) && port != 80) {
+            requestUrl.append(":").append(String.valueOf(port));
+        } else if("https".equalsIgnoreCase(scheme) && port != 443) {
+            requestUrl.append(":").append(String.valueOf(port));
         }
+        //7
         requestUrl.append(requestURI);
-        if (successUrl == null && getQueryString() != null) {
+        //8
+        if (backUrl == null && getQueryString() != null) {
             requestUrl.append("?").append(getQueryString());
         }
         return requestUrl.toString();
