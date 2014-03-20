@@ -25,7 +25,6 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		String username = (String) token.getPrincipal();
 		User user = userService.findByUsername(username);
-
 		if (null == user) {
 			throw new UnknownAccountException();
 		}

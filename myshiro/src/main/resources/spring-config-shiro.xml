@@ -6,8 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<context:property-placeholder location="classpath:shiro.properties"/>
+
+	<context:property-placeholder location="classpath:resources.properties"/>
 	
 	<!-- 缓存管理器 -->
 	<bean id="shiroCacheManager" class="com.github.lejingw.myshiro.spring.SpringCacheManagerWrapper">
@@ -17,13 +17,18 @@
 	<!-- 匹配验证器 -->
 	<bean id="credentialsMatcher" class="com.github.lejingw.myshiro.credential.RetryLimitHashedCredentialsMatcher">
 		<constructor-arg ref="shiroCacheManager"/>
-		<property name="hashAlgorithm" value="${password.algorithmName}"/>
+		<property name="hashAlgorithmName" value="${password.algorithmName}"/>
 		<property name="hashIterations" value="${password.hashIterations}"/>
 		<property name="storedCredentialsHexEncoded" value="true"/>
 	</bean>
 	
 	<bean id="userRealm" class="com.github.lejingw.myshiro.realm.UserRealm">
-		<property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="cachingEnabled" value="false"/>
+        <!--<property name="authenticationCachingEnabled" value="true"/>-->
+        <!--<property name="authenticationCacheName" value="authenticationCache"/>-->
+        <!--<property name="authorizationCachingEnabled" value="true"/>-->
+        <!--<property name="authorizationCacheName" value="authorizationCache"/>-->
 	</bean>
 	
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
@@ -35,7 +40,6 @@
 	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 	
 	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-		<property name="cacheManager" ref="shiroCacheManager"/>
 		<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
 		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
 	</bean>

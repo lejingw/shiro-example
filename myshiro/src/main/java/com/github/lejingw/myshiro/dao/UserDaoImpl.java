@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -34,7 +35,7 @@ public class UserDaoImpl implements UserDao {
                 psst.setString(count++, user.getPassword());
                 psst.setString(count++, user.getSalt());
                 psst.setString(count++, user.getRoleIdsStr());
-                psst.setBoolean(count++, user.getLocked());
+                psst.setBoolean(count++, user.isLocked());
                 return psst;
             }
         }, keyHolder);
@@ -47,7 +48,7 @@ public class UserDaoImpl implements UserDao {
         String sql = "update sys_user set organization_id=?,username=?, password=?, salt=?, role_ids=?, locked=? where id=?";
         jdbcTemplate.update(
                 sql,
-                user.getOrganizationId(), user.getUsername(), user.getPassword(), user.getSalt(), user.getRoleIdsStr(), user.getLocked(), user.getId());
+                user.getOrganizationId(), user.getUsername(), user.getPassword(), user.getSalt(), user.getRoleIdsStr(), user.isLocked(), user.getId());
         return user;
     }
 
